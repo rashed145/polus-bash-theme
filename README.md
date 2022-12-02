@@ -6,3 +6,4 @@ mkdir -p ~/.bash_themes
 curl -L https://raw.githubusercontent.com/rashed145/polus-bash-theme/main/polus.bash_theme -o ~/.bash_themes/polus.bash_theme
 echo "source ~/.bash_themes/polus.bash_theme"| tee -a ~/.bashrc
 ```
+# Screenshot
