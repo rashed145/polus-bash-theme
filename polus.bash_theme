@@ -1,0 +1,20 @@
+__prompt() {
+        local EXIT="$?"
+        local color=35
+        [ ${EXIT} -ne 0 ] && local color=202
+        local rs='\[\e[0m\]'
+        local efg='\[\e[1;38;5;16m\]'
+        local bg="\[\e[48;5;${color}m\]"
+        local pbg="\[\e[48;5;226m\]"
+        local fg="\[\e[38;5;${color}m\]"
+        local pfg="\[\e[38;5;226m\]"
+        local st=`printf '\ue0b6'`
+        local en=`printf '\ue0b0'`
+        local pst=`printf '\ue0b6'`
+        local cmd="\[\e[38;5;48m\]"
+        PS0="\[\e[0m\]"
+        [ -n "$(jobs -p)" ] && \
+        local extras="${pfg}${pst}${rs}${pbg}${efg}\j"
+        PS1=" ${extras}${extras:+ }${fg}${st}${rs}${bg}${efg}\w ${rs}${fg}${en}${rs}${cmd} "
+}
+PROMPT_COMMAND="${PROMPT_COMMAND}${PROMPT_COMMAND:+;}__prompt"
