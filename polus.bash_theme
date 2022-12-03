@@ -1,5 +1,6 @@
 __prompt() {
-        local EXIT="$?"                             local color=35
+        local EXIT="$?"
+        local color=35
         [ ${EXIT} -ne 0 ] && local color=196
         local rs='\[\e[0m\]'
         local efg='\[\e[1;38;5;16m\]'
