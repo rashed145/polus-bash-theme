@@ -21,4 +21,4 @@ ln -sf ~/.fonts/UbuntuMono.ttf ~/.termux/font.ttf
 termux-reload-settings
 ```
 # Screenshot
-![Screenshot](Screenshot_2022-12-03-00-59-26-24_84d3000e3f4017145260f7618db1d683.jpg)
+![Screenshot](screenshot.jpg)
