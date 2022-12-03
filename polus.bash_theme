@@ -26,4 +26,4 @@ __prompt() {
         PS1=" ${extras}${extras:+ }${fg}${st}${rs}${bg}${efg}\w ${rs}${fg}${gbg}${en}${__git}${rs}${cmd} "
 }
 PROMPT_DIRTRIM=3
-PROMPT_COMMAND="${PROMPT_COMMAND}${PROMPT_COMMAND:+;}__prompt"
+PROMPT_COMMAND="__prompt; ${PROMPT_COMMAND}"
