@@ -1,29 +1,44 @@
 __prompt() {
-        local EXIT="$?"
-        local color=35
-        [ ${EXIT} -ne 0 ] && local color=196
-        local rs='\[\e[0m\]'
-        local efg='\[\e[1;38;5;16m\]'
-        local bg="\[\e[48;5;${color}m\]"
-        local pbg="\[\e[48;5;226m\]"
-        local fg="\[\e[38;5;${color}m\]"
-        local pfg="\[\e[38;5;226m\]"
-        local st=`printf '\ue0b6'`
-        local en=`printf '\ue0b0'`
-        local pst=`printf '\ue0b6'`
-        local cmd="\[\e[38;5;48m\]"
-        PS0="\[\e[0m\]"
-        [ -n "$(jobs -p)" ] && \
-        local extras="${pfg}${pst}${rs}${pbg}${efg}\j"
-        [ -e ".git" ] && {
-        local __git=`__git_ps1`
-        local __git=${__git//[()]/}
-        local gbg="\[\e[48;5;15m\]"
-        local gfg="\[\e[38;5;15m\]"
-        local __git="${gbg}${efg}${__git}${rs}${gfg}${en}${rs}"
+  __ps1() {
+        EST="$?"
+        local STA=35
+        local STRT=""
+        local PSEP=""
+        local FI=""
+        local RS="\[\e[0m\]"
+        local ERR="\[\e[48;5;196m\]"
+        local IERR="\[\e[38;5;196m\]"
+        local FG="\[\e[1;38;5;16m\]"
+        [ "$UID" -eq 0 ] && STA=32
+        [ $EST -ne 0 ] && STA=196
+        [ "$PWD" = "$HOME" ] && FI=""
+        [ $(jobs -l | wc -l) -gt 0 ] && {
+        local JI=" "
+        local JBG="\[\e[48;5;228m\]"
+        local IJBG="\[\e[38;5;228m\]"
+        local PEXTRA="$IJBG$STRT$JBG$FG\j$JI"
         }
-        GIT_PS1_SHOWDIRTYSTATE=1
-        PS1=" ${extras}${extras:+ }${fg}${st}${rs}${bg}${efg}\w ${rs}${fg}${gbg}${en}${__git}${rs}${cmd} "
+        [ -d ".git" ] && {
+        local BR="$(git symbolic-ref -q --short HEAD 2>/dev/null)"
+        local ST="$(git status --porcelain --ignore-submodules 2>/dev/null)"
+        }
+        [ -n "$BR" ] && {
+        local GITBG="\[\e[48;5;15m\]"
+        local GITFG="\[\e[38;5;15m\]"
+        [ -n "$ST" ] && {
+        local GITBG="\[\e[48;5;210m\]"
+        local GITFG="\[\e[38;5;210m\]"
+        }
+        local GIT=" "
+        local EXTRA="$FG$GIT$BR$RS$GITFG$PSEP"
+        }
+        local BG="\[\e[48;5;${STA}m\]"
+        local IBG="\[\e[38;5;${STA}m\]"
+
+        PS0="$RS"
+        PS1="$PEXTRA$IBG$STRT$RS$FG${BG}\w $FI $RS$IBG$GITBG$PSEP$EXTRA$RS "
+  }
+  PROMPT_COMMAND="__ps1${PROMPT_COMMAND:+; $PROMPT_COMMAND}"
 }
-PROMPT_DIRTRIM=3
-PROMPT_COMMAND="__prompt; ${PROMPT_COMMAND}"
+__prompt
+unset __prompt
