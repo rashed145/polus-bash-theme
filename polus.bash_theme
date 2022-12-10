@@ -1,44 +1,45 @@
 __prompt() {
-  __ps1() {
-        EST="$?"
-        local STA=35
-        local STRT=""                         local PSEP=""
-        local FI=""
-        local RS="\[\e[0m\]"
-        local ERR="\[\e[48;5;196m\]"           local IERR="\[\e[38;5;196m\]"
-        local FG="\[\e[1;38;5;16m\]"
-        [ "$UID" -eq 0 ] && STA=32             [ $EST -ne 0 ] && STA=196
-        [ "$PWD" = "$HOME" ] && FI=""
-        [ -d ".git" ] && {
-        local BR="$(git symbolic-ref -q --short HEAD 2>/dev/null)"
-        local ST="$(git status --porcelain --ignore-submodules 2>/dev/null)"
+        __ps1() {
+                EST="$?"
+                local STA=35
+                local STRT=""
+                local PSEP=""
+                local FI=""
+                local RS="\[\e[0m\]"
+                local ERR="\[\e[48;5;196m\]"
+                local IERR="\[\e[38;5;196m\]"
+                local FG="\[\e[1;38;5;16m\]"
+                [ "$UID" -eq 0 ] && STA=32
+                [ $EST -ne 0 ] && STA=196
+                [ "$PWD" = "$HOME" ] && FI=""
+                [ -d ".git" ] && {
+                local BR="$(git symbolic-ref -q --short HEAD 2>/dev/null)"
+                local ST="$(git status --porcelain --ignore-submodules 2>/dev/null)"
+                }
+                [ -n "$BR" ] && {
+                local GITBG="\[\e[48;5;15m\]"
+                local GITFG="\[\e[38;5;15m\]"
+                [ -n "$ST" ] && {
+                local GITBG="\[\e[48;5;210m\]"
+                local GITFG="\[\e[38;5;210m\]"
+                }
+                local GIT=" "
+                local EXTRA="$FG$GIT$BR$RS$GITFG$PSEP"
+                }
+                local BG="\[\e[48;5;${STA}m\]"
+                local IBG="\[\e[38;5;${STA}m\]"
+                PS0="$RS"
+                local J="\j"
+                J="${J@P}"
+                [ $J -gt 0 ] && {
+                local JI=" "
+                local JBG="\[\e[48;5;228m\]"
+                local IJBG="\[\e[38;5;228m\]"
+                local PEXTRA="$IJBG$STRT$JBG$FG$J$JI"
+                }
+                PS1="$PEXTRA$IBG$STRT$RS$FG${BG}\w $FI $RS$IBG$GITBG$PSEP$EXTRA$RS "
         }
-        [ -n "$BR" ] && {
-        local GITBG="\[\e[48;5;15m\]"
-        local GITFG="\[\e[38;5;15m\]"
-        [ -n "$ST" ] && {
-        local GITBG="\[\e[48;5;210m\]"
-        local GITFG="\[\e[38;5;210m\]"
-        }
-        local GIT=" "
-        local EXTRA="$FG$GIT$BR$RS$GITFG$PSEP"
-        }
-        local BG="\[\e[48;5;${STA}m\]"
-        local IBG="\[\e[38;5;${STA}m\]"
-
-        PS0="$RS"
-        local J="\j"
-        J="${J@P}"
-        [ $J -gt 0 ] && {
-        local JI=" "
-        local JBG="\[\e[48;5;228m\]"
-        local IJBG="\[\e[38;5;228m\]"
-        local PEXTRA="$IJBG$STRT$JBG$FG$J$JI"
-        }
-
-        PS1="$PEXTRA$IBG$STRT$RS$FG${BG}\w $FI $RS$IBG$GITBG$PSEP$EXTRA$RS "
-  }
-  PROMPT_COMMAND="__ps1${PROMPT_COMMAND:+; $PROMPT_COMMAND}"
+        PROMPT_COMMAND="__ps1${PROMPT_COMMAND:+; $PROMPT_COMMAND}"
 }
 __prompt
 unset __prompt
