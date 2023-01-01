@@ -40,4 +40,12 @@ __prompt() {
         PS1="$PEXTRA$IBG$STRT$RS$FG${BG}$FI\w$RS$IBG$GITBG$PSEP$EXTRA$RS "
 }
 
-PROMPT_COMMAND="__prompt${PROMPT_COMMAND:+; $PROMPT_COMMAND}"
+nwln() {
+    local C
+    printf "\E[6n"
+    read -sdR C
+    C=${C#*[}
+    C="${C##*;}"
+    [ "$C" -ne 1 ] && echo || return 0
+}
+PROMPT_COMMAND="__prompt; nwln; ${PROMPT_COMMAND:+; $PROMPT_COMMAND}"
