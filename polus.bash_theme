@@ -48,4 +48,4 @@ nwln() {
     C="${C##*;}"
     [ "$C" -ne 1 ] && echo || return 0
 }
-PROMPT_COMMAND="__prompt; nwln; ${PROMPT_COMMAND:+; $PROMPT_COMMAND}"
+PROMPT_COMMAND="__prompt; nwln; ${PROMPT_COMMAND}"
