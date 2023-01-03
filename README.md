@@ -3,7 +3,7 @@ Polus is a simple bash theme. Please contribute to this repository for a better 
 # Installation
 ```
 curl -L https://raw.githubusercontent.com/rashed145/polus-bash-theme/main/polus.bash-theme -o ~/.config/bash/themes/polus.bash-theme --create-dirs
-echo "source ~/.config/bash/themes/polus.bash-theme"| tee -a ~/.bashrc
+echo "[ -r ~/.config/bash/themes/polus.bash-theme ] && . ~/.config/bash/themes/polus.bash-theme"| tee -a ~/.bashrc
 ```
 # Font to use
 I recommend Hack Nerd Font for this theme.
