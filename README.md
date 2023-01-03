@@ -15,6 +15,6 @@ But Nerd Font is recommended.
 # Install Hack Nerd Font in termux
 ```
 curl -L https://github.com/ryanoasis/nerd-fonts/blob/v2.2.2/patched-fonts/Hack/Regular/complete/Hack%20Regular%20Nerd%20Font%20Complete.ttf?raw=true -o ~/.termux/.fonts/Hack.ttf --create-dirs
-ln -sf ~/.fonts/Hack.ttf ~/.termux/font.ttf
+ln -sf ~/.termux/{.fonts/Hack.ttf,font.ttf}
 termux-reload-settings
 ```
