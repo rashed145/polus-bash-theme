@@ -18,3 +18,5 @@ curl -L https://github.com/ryanoasis/nerd-fonts/blob/v2.2.2/patched-fonts/Hack/R
 ln -sf ~/.termux/{.fonts/Hack.ttf,font.ttf}
 termux-reload-settings
 ```
+# Screenshots
+![Polus](screenshot.jpg)
