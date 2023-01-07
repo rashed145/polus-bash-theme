@@ -8,16 +8,18 @@ __prompt() {
         local ERR="\[\e[48;5;196m\]"
         local IERR="\[\e[38;5;196m\]"
         local FG="\[\e[1;38;5;16m\]"
-        [ "$EUID" -eq 0 ] && STA=32
+        [ "$UID" -eq 0 ] && STA=32
         [ $EST -ne 0 ] && STA=196
         [ "$PWD" = "$HOME" ] && FI=" "
+                test -w . || FI=" "
+                [[ " ${PATH//:/ } " =~ " $PWD " ]] && FI=" "
         [ -d .git ] && {
                 local BR="$(git symbolic-ref --short HEAD 2>/dev/null)"
                 [ -n "$BR" ] && {
                         local GITBG="\[\e[48;5;15m\]"
                         local GITFG="\[\e[38;5;15m\]"
-                        git diff --no-ext-diff --quiet || local GC=210
-                        git diff --no-ext-diff --cached --quiet || local GC=197
+                        git diff --no-ext-diff --quiet || local GC=211
+                        git diff --no-ext-diff --cached --quiet || local GC=204
                         [ -n "$GC" ] && {
                                 local GITBG="\[\e[48;5;${GC}m\]"
                                 local GITFG="\[\e[38;5;${GC}m\]"
@@ -33,9 +35,11 @@ __prompt() {
         J="${J@P}"
         [ $J -gt 0 ] && {
                 local JI=" "
-                local JBG="\[\e[48;5;228m\]"
-                local IJBG="\[\e[38;5;228m\]"
-                local PEXTRA="$IJBG$STRT$JBG$FG$J$JI"
+                                local JC=192
+                local JBG="\[\e[48;5;${JC}m\]"
+                local IJBG="\[\e[38;5;${JC}m\]"
+                local PEXTRA="$IJBG$STRT$JBG$FG$JI$J"
+                                STRT=""
         }
         PS1="$PEXTRA$IBG$STRT$RS$FG${BG}$FI\w$RS$IBG$GITBG$PSEP$EXTRA$RS "
 }
