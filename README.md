@@ -1,5 +1,5 @@
 # polus-bash-theme
-Polus is a fast and modern bash theme. Is is very very lightweight and completely written in bash without additional dependencies.
+Polus is a fast and modern bash theme. It is very lightweight and completely written in bash without additional dependencies. It has less than 60 lines of code.
 # Installation
 ```
 curl -L https://raw.githubusercontent.com/rashed145/polus-bash-theme/main/polus.bash-theme -o ~/.config/bash/themes/polus.bash-theme --create-dirs
