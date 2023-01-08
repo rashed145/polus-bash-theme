@@ -1,41 +1,40 @@
 __prompt() {
-  EST="$?"
-  local STA=35
-  local RS="\[\e[0m\]"
+  local EXIT_STATUS=$?                            local MAIN_COLOR=35
+  local RESET="\[\e[0m\]"
   local FG="\[\e[1;38;5;16m\]"
-  local STRT=""
-  local PSEP=""
-  local FI=" "
-  [ "$UID" -eq 0 ] && STA=32
-  [ $EST -ne 0 ] && STA=196
-  [ "$PWD" = "$HOME" ] && FI=" "
-  test -w . || FI=" "
-  [[ " ${PATH//:/ } " =~ " $PWD " ]] && FI=" "
+  local PROMPT_START=""
+  local SEGMENT_SEPARATOR=""
+  local FOLDER_ICON=" "
+  [ $UID -eq 0 ] && MAIN_COLOR=32
+  [ $EXIT_STATUS -ne 0 ] && MAIN_COLOR=196
+  [ "$PWD" = "$HOME" ] && FOLDER_ICON=" "
+  test -w . || FOLDER_ICON=" "
+  [[ " ${PATH//:/ } " =~ " $PWD " ]] && FOLDER_ICON=" "
   [ -d .git ] && {
-    local BR="$(git symbolic-ref --short HEAD 2>/dev/null)"
-    [ -n "$BR" ] && {
-      git diff --no-ext-diff --quiet || local GC=211
-      git diff --no-ext-diff --cached --quiet || local GC=204
-      local GITBG="\[\e[48;5;${GC:-15}m\]"
-      local GITFG="\[\e[38;5;${GC:-15}m\]"
-      local GIT=" "
-      local EXTRA="$FG$GIT$BR$RS$GITFG$PSEP"
+    local GIT_BRANCH="$(git symbolic-ref --short HEAD 2>/dev/null)"
+    [ -n "$GIT_BRANCH" ] && {
+      git diff --no-ext-diff --quiet || local GIT_COLOR=211
+      git diff --no-ext-diff --cached --quiet || local GIT_COLOR=204
+      local GITBG="\[\e[48;5;${GIT_COLOR:-15}m\]"
+      local GITFG="\[\e[38;5;${GIT_COLOR:-15}m\]"
+      local GIT_ICON=" "
+      local GIT_SEGMENT="$FG$GIT_ICON$GIT_BRANCH$RESET$GITFG$SEGMENT_SEPARATOR"
     }
   }
-  local BG="\[\e[48;5;${STA}m\]"
-  local IBG="\[\e[38;5;${STA}m\]"
-  PS0="$RS"
-  local J="\j"
-  J="${J@P}"
-  [ $J -gt 0 ] && {
-    local JI=" "
-    local JC=192
-    local JBG="\[\e[48;5;${JC}m\]"
-    local IJBG="\[\e[38;5;${JC}m\]"
-    local PEXTRA="$IJBG$STRT$JBG$FG$JI$J"
-    STRT=""
+  local BG="\[\e[48;5;${MAIN_COLOR}m\]"
+  local SEGMENT_SEPARATOR_COLOR="\[\e[38;5;${MAIN_COLOR}m\]"
+  PS0="$RESET"
+  local JOBS="\j"
+  JOBS="${JOBS@P}"
+  [ $JOBS -gt 0 ] && {
+    local JOBS_ICON=" "
+    local JOBS_COLOR=192
+    local JOBS_BG="\[\e[48;5;${JOBS_COLOR}m\]"
+    local JOBS_SEGMENT_SEPARATOR_COLOR="\[\e[38;5;${JOBS_COLOR}m\]"
+    local JOB_SEGMENT="$JOBS_SEGMENT_SEPARATOR_COLOR$PROMPT_START$JOBS_BG$FG$JOBS_ICON$JOBS"
+    PROMPT_START=""
   }
-  PS1="$PEXTRA$IBG$STRT$RS$FG$BG$FI\w$RS$IBG$GITBG$PSEP$EXTRA$RS "
+  PS1="$JOB_SEGMENT$SEGMENT_SEPARATOR_COLOR$PROMPT_START$RESET$FG$BG$FOLDER_ICON\w$RESET$SEGMENT_SEPARATOR_COLOR$GITBG$SEGMENT_SEPARATOR$GIT_SEGMENT$RESET "
 }
 
 nwln() {
