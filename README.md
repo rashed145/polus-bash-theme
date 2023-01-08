@@ -5,6 +5,8 @@ Polus is a fast and modern bash theme. It is very lightweight and completely wri
 curl -L https://raw.githubusercontent.com/rashed145/polus-bash-theme/main/polus.bash-theme -o ~/.config/bash/themes/polus.bash-theme --create-dirs
 echo "[ -r ~/.config/bash/themes/polus.bash-theme ] && . ~/.config/bash/themes/polus.bash-theme"| tee -a ~/.bashrc
 ```
+# Customization
+Just edit the variables in the polus.bash-theme file according to your needs.
 # Font to use
 I recommend Hack Nerd Font for this theme.
 You can use any other Nerd Font you like.
