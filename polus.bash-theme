@@ -1,5 +1,6 @@
 __prompt() {
-  local EXIT_STATUS=$?                            local MAIN_COLOR=35
+  local EXIT_STATUS=$?
+  local MAIN_COLOR=35
   local RESET="\[\e[0m\]"
   local FG="\[\e[1;38;5;16m\]"
   local PROMPT_START=""
