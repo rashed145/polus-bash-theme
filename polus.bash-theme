@@ -1,41 +1,41 @@
 __prompt() {
-  EXIT_STATUS="$?"
-  local MAIN_COLOR=35
-  local RESET="\[\e[0m\]"
-  local FOREGROUND="\[\e[1;38;5;16m\]"
-  local PROMPT_START=""
-  local PROMPT_SEPARATOR=""
-  local FOLDER_ICON=" "
-  [ "$UID" -eq 0 ] && MAIN_COLOR=32
-  [ "$EXIT_STATUS" -ne 0 ] && MAIN_COLOR=196
-  [ "$PWD" = "$HOME" ] && FOLDER_ICON=" "
-  test -w . || FOLDER_ICON=" "
-  [[ " ${PATH//:/ } " =~ " $PWD " ]] && FOLDER_ICON=" "
+  EST="$?"
+  local STA=35
+  local RS="\[\e[0m\]"
+  local FG="\[\e[1;38;5;16m\]"
+  local STRT=""
+  local PSEP=""
+  local FI=" "
+  [ "$UID" -eq 0 ] && STA=32
+  [ $EST -ne 0 ] && STA=196
+  [ "$PWD" = "$HOME" ] && FI=" "
+  test -w . || FI=" "
+  [[ " ${PATH//:/ } " =~ " $PWD " ]] && FI=" "
   [ -d .git ] && {
-    local GIT_BRANCH=$(git symbolic-ref --short HEAD 2>/dev/null)
-    [ -n "$GIT_BRANCH" ] && {
-      git diff --no-ext-diff --quiet || local GIT_COLOR=211
-      git diff --no-ext-diff --cached --quiet || local GIT_COLOR=204
-      local GIT_BACKGROUND="\[\e[48;5;${GIT_COLOR:-15}m\]"
-      local GIT_FOREGROUND="\[\e[38;5;${GIT_COLOR:-15}m\]"
-      local GIT_ICON=" "
-      local EXTRA="${FOREGROUND}${GIT_ICON}${GIT_BRANCH}${RESET}${GIT_FOREGROUND}${PROMPT_SEPARATOR}"
+    local BR="$(git symbolic-ref --short HEAD 2>/dev/null)"
+    [ -n "$BR" ] && {
+      git diff --no-ext-diff --quiet || local GC=211
+      git diff --no-ext-diff --cached --quiet || local GC=204
+      local GITBG="\[\e[48;5;${GC:-15}m\]"
+      local GITFG="\[\e[38;5;${GC:-15}m\]"
+      local GIT=" "
+      local EXTRA="$FG$GIT$BR$RS$GITFG$PSEP"
     }
   }
-  local BACKGROUND="\[\e[48;5;${MAIN_COLOR}m\]"
-  local SEPARATOR_BACKGROUND="\[\e[38;5;${MAIN_COLOR}m\]"
-  PS0="$RESET"
-  local JOBS="\j"
-  JOBS="${JOBS@P}"
-  [ "$JOBS" -gt 0 ] && {
-    local JOBS_ICON=" "
-    local JOBS_COLOR=192
-    local JOBS_BACKGROUND="\[\e[48;5;${JOBS_COLOR}m\]"
-    local JOBS_SEPARATOR_BACKGROUND="\[\e[38;5;${JOBS_COLOR}m\]"
-    local PRE_EXTRA="${JOBS_SEPARATOR_BACKGROUND}${PROMPT_START}${JOBS_BACKGROUND}${FOREGROUND}${JOBS_ICON}${JOBS}"
-    PROMPT_START=""
+  local BG="\[\e[48;5;${STA}m\]"
+  local IBG="\[\e[38;5;${STA}m\]"
+  PS0="$RS"
+  local J="\j"
+  J="${J@P}"
+  [ $J -gt 0 ] && {
+    local JI=" "
+    local JC=192
+    local JBG="\[\e[48;5;${JC}m\]"
+    local IJBG="\[\e[38;5;${JC}m\]"
+    local PEXTRA="$IJBG$STRT$JBG$FG$JI$J"
+    STRT=""
   }
-  PS1="${PRE_EXTRA}${SEPARATOR_BACKGROUND}${PROMPT_START}${RESET}${FOREGROUND}${BACKGROUND}${FOLDER_ICON}\w${RESET}${SEPARATOR_BACKGROUND}${GIT_BACKGROUND}${PROMPT_SEPARATOR}${EXTRA}${RESET} "
+  PS1="$PEXTRA$IBG$STRT$RS$FG$BG$FI\w$RS$IBG$GITBG$PSEP$EXTRA$RS "
 }
 
 nwln() {
