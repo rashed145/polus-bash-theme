@@ -1,4 +1,5 @@
-__prompt() {                                EXIT_STATUS="$?"
+__prompt() {
+  EXIT_STATUS="$?"
   local MAIN_COLOR=35
   local RESET="\[\e[0m\]"
   local FOREGROUND="\[\e[1;38;5;16m\]"
@@ -9,7 +10,8 @@ __prompt() {                                EXIT_STATUS="$?"
   [ "$EXIT_STATUS" -ne 0 ] && MAIN_COLOR=196
   [ "$PWD" = "$HOME" ] && FOLDER_ICON=" "
   test -w . || FOLDER_ICON=" "
-  [[ " ${PATH//:/ } " =~ " $PWD " ]] && FOLDER_ICON=" "                              [ -d .git ] && {
+  [[ " ${PATH//:/ } " =~ " $PWD " ]] && FOLDER_ICON=" "
+  [ -d .git ] && {
     local GIT_BRANCH=$(git symbolic-ref --short HEAD 2>/dev/null)
     [ -n "$GIT_BRANCH" ] && {
       git diff --no-ext-diff --quiet || local GIT_COLOR=211
