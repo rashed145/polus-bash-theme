@@ -22,4 +22,4 @@ ln -sf ~/.termux/{.fonts/Hack.ttf,font.ttf}
 termux-reload-settings
 ```
 # Screenshots
-![Polus](screenshot.jpg)
+![](https://github.com/rashed145/polus-bash-theme/screenshot.jpg)
