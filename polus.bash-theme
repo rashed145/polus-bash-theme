@@ -1,4 +1,5 @@
 trap '_polus-preexec' DEBUG
+shopt -s checkwinsize
 
 _polus-preexec() {
   [ -n "$_TOK" ] && unset _TOK && _STIME=$SECONDS
