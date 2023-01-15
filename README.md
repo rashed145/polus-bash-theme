@@ -3,7 +3,7 @@ Polus is a fast and modern bash theme. It is very lightweight and completely wri
 # Installation
 ```
 sed -i '\,\. ~/.config/bash/themes/polus.bash-theme,d' ~/.bashrc
-curl -L https://raw.githubusercontent.com/rashed145/polus-bash-theme/main/polus.bash-theme -o ~/.config/bash/themes/polus.bash-theme --create-dirs
+curl -fsSL https://raw.githubusercontent.com/rashed145/polus-bash-theme/main/polus.bash-theme -o ~/.config/bash/themes/polus.bash-theme --create-dirs
 echo "[ -r ~/.config/bash/themes/polus.bash-theme ] && . ~/.config/bash/themes/polus.bash-theme"| tee -a ~/.bashrc
 ```
 # Customization
