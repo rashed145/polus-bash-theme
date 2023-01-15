@@ -23,8 +23,7 @@ nwln() {
 __prompt() {
   local EXIT_STATUS=$?
   nwln
-  _ETIME=$SECONDS
-  _DURATION=$[_ETIME - _STIME]
+  _DURATION=$[SECONDS - _STIME]
   unset _STIME
   _TOK=1
   local MAIN_COLOR=35
