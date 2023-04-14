@@ -22,7 +22,7 @@ ln -sf ~/.termux/{.fonts/Hack.ttf,font.ttf}
 termux-reload-settings
 ```
 # Screenshots
-![](scrnshot.jpg)
+![](screenshot.jpg)
 
 #
 Facebook: [Rashedul Hasan Rafi](https://www.facebook.com/profile.php?id=100088194283934&mibextid=ZbWKwL)
