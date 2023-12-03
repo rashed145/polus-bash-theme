@@ -78,7 +78,7 @@ __prompt() {
 	eval "$_PRC"
 }
 
-[ -z "$PTMFMT" ] && PTMFMT="[\A]"
+[ -z "${PTMFMT+x}" ] && PTMFMT="[\A]"
 _PRC="${PROMPT_COMMAND}"
 PROMPT_COMMAND="__prompt"
 _STIME=$SECONDS
