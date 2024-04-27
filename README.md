@@ -8,6 +8,14 @@ echo "[ -r ~/.config/bash/themes/polus.bash-theme ] && . ~/.config/bash/themes/p
 ```
 # Customization
 Just edit the variables in the polus.bash-theme file according to your needs.
+You can customize the time format using PTMFMT variable.
+Available options:
+```
+\t the current time in 24-hour HH:MM:SS format
+\T the current time in 12-hour HH:MM:SS format
+\@ the current time in 12-hour am/pm format
+\A the current time in 24-hour HH:MM format
+```
 # Font to use
 I recommend Hack Nerd Font for this theme.
 You can use any other Nerd Font you like.
