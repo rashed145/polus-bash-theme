@@ -9,7 +9,7 @@ echo "[ -r ~/.config/bash/themes/polus.bash-theme ] && . ~/.config/bash/themes/p
 # Customization
 Just edit the variables in the polus.bash-theme file according to your needs.
 You can customize the time format using `PTMFMT` variable.
-:memo:Available options
+### Available options
 Option | Description
 -- | --
 \t | the current time in 24-hour HH:MM:SS format
